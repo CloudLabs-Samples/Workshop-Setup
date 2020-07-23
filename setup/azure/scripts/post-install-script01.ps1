@@ -169,21 +169,6 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabs-Samples/Wor
 
 sleep 20
 
-#$LabFilesDirectory = "C:\LabFiles"
-
-#Enable Autologon
-#$AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
-#Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String 
-#Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:ComputerName)\demouser" -type String  
-#Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "Password.1!!" -type String
-#Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
-
-# Scheduled Task
-#$Trigger= New-ScheduledTaskTrigger -AtLogOn
-#$User= "$($env:ComputerName)\demouser" 
-#$Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File $LabFilesDirectory\post-install-script02.ps1"
-#Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force 
-
 $securePassword = $AzurePassword | ConvertTo-SecureString -AsPlainText -Force
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $AzureUserName, $SecurePassword
 
