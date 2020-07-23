@@ -189,5 +189,6 @@ $User= "$($env:ComputerName)\demouser"
 $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File $LabFilesDirectory\post-install-script02.ps1"
 Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force 
 
-Restart-Computer -Force
+Stop-Transcript
 
+Restart-Computer -Force
