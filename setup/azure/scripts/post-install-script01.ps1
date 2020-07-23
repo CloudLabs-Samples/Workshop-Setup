@@ -19,10 +19,6 @@ Param (
     $DeploymentID
 )
 
-Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -Append
-[Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
-[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
-
 #Disable-InternetExplorerESC
 Function Disable-InternetExplorerESC
     {
@@ -49,7 +45,7 @@ Function DisableServerMgrNetworkPopup
         cd HKLM:\
         New-Item -Path HKLM:\System\CurrentControlSet\Control\Network -Name NewNetworkWindowOff -Force 
 
-		Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
+	Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
     }
 
 #Disable CreateLabFilesDirectory
@@ -73,7 +69,7 @@ Function InstallEdgeChromium
         $WebClient.DownloadFile("http://dl.delivery.mp.microsoft.com/filestreamingservice/files/6d88cf6b-a578-468f-9ef9-2fea92f7e733/MicrosoftEdgeEnterpriseX64.msi","C:\Packages\MicrosoftEdgeBetaEnterpriseX64.msi")
         sleep 5
         
-	    Start-Process msiexec.exe -Wait '/I C:\Packages\MicrosoftEdgeBetaEnterpriseX64.msi /qn' -Verbose 
+	Start-Process msiexec.exe -Wait '/I C:\Packages\MicrosoftEdgeBetaEnterpriseX64.msi /qn' -Verbose 
         sleep 5
         $WshShell = New-Object -comObject WScript.Shell
         $Shortcut = $WshShell.CreateShortcut("C:\Users\Public\Desktop\Azure Portal.lnk")
@@ -134,6 +130,20 @@ Function InstallChocolatey
         choco feature enable -n allowGlobalConfirmation
     }
 
+Function Expand-ZIPFile($file, $destination)
+    {
+	$shell = new-object -com shell.application
+	$zip = $shell.NameSpace($file)
+	foreach($item in $zip.items())
+           {
+	       $shell.Namespace($destination).copyhere($item)
+           }
+    }
+
+Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -Append
+[Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
+[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
+
 # Run Functions
 Disable-InternetExplorerESC
 Enable-IEFileDownload
@@ -145,26 +155,11 @@ CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID
 InstallAzPowerShellModule
 InstallPowerBIDesktop
 InstallChocolatey
+Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SpektraSystems/CloudLabs-Azure/master/azure-synapse-analytics-workshop-400/artifacts/setup/azcopy.exe" -OutFile "C:\LabFiles\azcopy.exe"
 
 Add-Content -Path "C:\LabFiles\AzureCreds.txt" -Value "ODLID= $ODLID" -PassThru
-
-#Download lab files
-$WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://github.com/SollianceNet/azure-synapse-analytics-day/archive/master.zip","C:\azure-synapse-analytics-day-master.zip")
-
-#unziping folder
-Function Expand-ZIPFile($file, $destination)
-{
-$shell = new-object -com shell.application
-$zip = $shell.NameSpace($file)
-foreach($item in $zip.items())
-{
-$shell.Namespace($destination).copyhere($item)
-}
-}
-Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
 
 choco install dotnetcore-sdk --force
 sleep 10
@@ -174,21 +169,35 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabs-Samples/Wor
 
 sleep 20
 
-$LabFilesDirectory = "C:\LabFiles"
+#$LabFilesDirectory = "C:\LabFiles"
 
 #Enable Autologon
-$AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
-Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String 
-Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:ComputerName)\demouser" -type String  
-Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "Password.1!!" -type String
-Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
+#$AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+#Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String 
+#Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:ComputerName)\demouser" -type String  
+#Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "Password.1!!" -type String
+#Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
 
 # Scheduled Task
-$Trigger= New-ScheduledTaskTrigger -AtLogOn
-$User= "$($env:ComputerName)\demouser" 
-$Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File $LabFilesDirectory\post-install-script02.ps1"
-Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force 
+#$Trigger= New-ScheduledTaskTrigger -AtLogOn
+#$User= "$($env:ComputerName)\demouser" 
+#$Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File $LabFilesDirectory\post-install-script02.ps1"
+#Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force 
 
+$securePassword = $AzurePassword | ConvertTo-SecureString -AsPlainText -Force
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $AzureUserName, $SecurePassword
+
+Connect-AzAccount -Credential $cred | Out-Null
+
+$resourceGroupName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "*Synapse-AIAD-*" }).ResourceGroupName
+$deploymentId =  (Get-AzResourceGroup -Name $resourceGroupName).Tags["DeploymentId"]
+
+# Template deployment
+New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName `
+  -TemplateUri "https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/setup/azure/innertemplates/deploy-synapse-workspace.json" `
+  -deploymentId $deploymentId -AsJob
+  
+New-AzRoleAssignment -ResourceGroupName $resourceGroupName -ErrorAction Ignore -ObjectId "37548b2e-e5ab-4d2b-b0da-4d812f56c30e" -RoleDefinitionName "Owner"
+
+sleep 20
 Stop-Transcript
-
-Restart-Computer -Force
