@@ -161,6 +161,8 @@ sleep 10
 $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/setup/azure/scripts/post-install-script02.ps1","C:\LabFiles\post-install-script02.ps1")
 
+sleep 20
+
 #Enable Autologon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String 
