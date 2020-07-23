@@ -155,6 +155,16 @@ $shell.Namespace($destination).copyhere($item)
 }
 Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
 
+#Install Chocolatey
+Function InstallChocolatey
+    {   
+        #[Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
+        #[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
+        $env:chocolateyUseWindowsCompression = 'true'
+        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -Verbose
+        choco feature enable -n allowGlobalConfirmation
+    }
+
 choco install dotnetcore-sdk --force
 sleep 10
 
