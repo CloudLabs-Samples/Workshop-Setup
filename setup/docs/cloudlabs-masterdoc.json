@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "Analytics in a Day: Build an end-to-end analytics solution with Azure Synapse",
+    "Language": "English",
+    "Files": [
+      {
+        "RawFilePath": "https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/docs/README.md",
+        "Order": 1
+      },
+      {
+        "RawFilePath": "https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/docs/01-explore-data-lake.md",
+        "Order": 2
+      },
+      {
+        "RawFilePath": "https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/docs/02-build-modern-dw-pipelines.md",
+        "Order": 3
+      }     
+    ]
+  }
+]
