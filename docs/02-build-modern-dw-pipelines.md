@@ -78,7 +78,7 @@ In this task, you see how easy it is to write into a SQL Pool table with Spark t
 
     - **Cell 1** imports required libraries and sets a few variables. The `adlsPath` variable defines the path used to connect to an Azure Data Lake Storage (ADLS) Gen2 account. Connecting to ADLS Gen2 from a notebook in Azure Synapse Analytics uses the power of Azure Active Directory (AAD) pass-through between compute and storage. The `uniqueId` provides a unique value to use for creating a new table in Azure Synapse Analytics.
 
-    ![Cell 1 of the notebook is displayed.](images/ex02-notebooks-ingest-cell-1.png "Notebook Cell 1")
+    ![Cell 1 of the notebook is displayed.](images/ex02-notebooks-ingest-cell-01.png "Notebook Cell 1")
 
     - **Cell 2** loads data from CSV files in the data lake into a DataSet. Note the `option` parameters in the `read` command on line 7. These options specify the settings to use when reading the CSV files. The options tell Spark that the first row of each file containers the column headers, the separator in the files in the `|` character, and that we want Spark to infer the schema of the files based on an analysis of the contents of each column. Finally, we display the first five records of the data retrieved and print the inferred schema to the screen.
 
@@ -397,7 +397,7 @@ In this task, you use a Pipeline containing a Data Flow to explore, transform, a
 
     ![The Settings tab is selected and highlighted in the configuration panel. On the tab, the Allow insert and Recreate table options are highlighted.](images/ex02-orchestrate-data-flow-sink-settings.png "Data flow canvas")
 
-42. Now that you have taken the time to review the data flow, let us return to your cloned copy of the pipeline. On the canvas, select the **Exercise 2 - Enrich Data_UNIQUEID** tab, where _UNIQUEID_ is the unique identifier you retrieved from your username (e.g., `A03`).
+42. Now that you have taken the time to review the data flow, let us return to your cloned copy of the pipeline. On the canvas, select the **Exercise 2 - Enrich Data_UNIQUEID** tab, where _UNIQUEID_ is the unique identifier you retrieved from your username (e.g., `2547`).
 
     ![The Exercise 2 - Enrich Data tab is highlighted on the canvas.](images/ex02-orchestrate-canvas-tabs-pipeline.png "Data pipeline canvas")
 
