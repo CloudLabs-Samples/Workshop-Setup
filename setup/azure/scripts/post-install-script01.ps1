@@ -29,6 +29,7 @@ Function Disable-InternetExplorerESC
         #Stop-Process -Name Explorer -Force
         Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -ForegroundColor Green -Verbose
     }
+
 #Enable-InternetExplorerESC
 Function Enable-IEFileDownload
     {
@@ -39,12 +40,12 @@ Function Enable-IEFileDownload
         Set-ItemProperty -Path $HKLM -Name "1604" -Value 0 -ErrorAction SilentlyContinue -Verbose
         Set-ItemProperty -Path $HKCU -Name "1604" -Value 0 -ErrorAction SilentlyContinue -Verbose
     }
+
 #Disable Server Manager NetworkPopup
 Function DisableServerMgrNetworkPopup
     {
         cd HKLM:\
         New-Item -Path HKLM:\System\CurrentControlSet\Control\Network -Name NewNetworkWindowOff -Force 
-
 	Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
     }
 
@@ -77,7 +78,6 @@ Function InstallEdgeChromium
         $argA = """https://portal.azure.com"""
         $Shortcut.Arguments = $argA 
         $Shortcut.Save()
-
     }
 
 #Create Azure Credential File on Desktop
@@ -157,8 +157,6 @@ InstallPowerBIDesktop
 InstallChocolatey
 Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SpektraSystems/CloudLabs-Azure/master/azure-synapse-analytics-workshop-400/artifacts/setup/azcopy.exe" -OutFile "C:\LabFiles\azcopy.exe"
-
 Add-Content -Path "C:\LabFiles\AzureCreds.txt" -Value "ODLID= $ODLID" -PassThru
 
 choco install dotnetcore-sdk --force
@@ -174,10 +172,10 @@ $cred = new-object -typename System.Management.Automation.PSCredential -argument
 
 Connect-AzAccount -Credential $cred | Out-Null
 
+# Template deployment
 $resourceGroupName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "*Synapse-AIAD-*" }).ResourceGroupName
 $deploymentId =  (Get-AzResourceGroup -Name $resourceGroupName).Tags["DeploymentId"]
 
-# Template deployment
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName `
   -TemplateUri "https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/setup/azure/innertemplates/deploy-synapse-workspace.json" `
   -deploymentId $deploymentId -AsJob
