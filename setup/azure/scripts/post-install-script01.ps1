@@ -174,6 +174,8 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabs-Samples/Wor
 
 sleep 20
 
+$LabFilesDirectory = "C:\LabFiles"
+
 #Enable Autologon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String 
