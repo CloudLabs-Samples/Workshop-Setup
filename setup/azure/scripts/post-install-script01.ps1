@@ -124,6 +124,16 @@ Function InstallPowerBIDesktop
         Start-Process -FilePath "C:\Packages\PBIDesktop_x64.exe" -ArgumentList '-quiet','ACCEPT_EULA=1'
     }
 
+#Install Chocolatey
+Function InstallChocolatey
+    {   
+        #[Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
+        #[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
+        $env:chocolateyUseWindowsCompression = 'true'
+        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -Verbose
+        choco feature enable -n allowGlobalConfirmation
+    }
+
 # Run Functions
 Disable-InternetExplorerESC
 Enable-IEFileDownload
@@ -134,6 +144,7 @@ InstallEdgeChromium
 CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID $ODLID
 InstallAzPowerShellModule
 InstallPowerBIDesktop
+InstallChocolatey
 
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SpektraSystems/CloudLabs-Azure/master/azure-synapse-analytics-workshop-400/artifacts/setup/azcopy.exe" -OutFile "C:\LabFiles\azcopy.exe"
 
@@ -154,16 +165,6 @@ $shell.Namespace($destination).copyhere($item)
 }
 }
 Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
-
-#Install Chocolatey
-Function InstallChocolatey
-    {   
-        #[Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
-        #[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
-        $env:chocolateyUseWindowsCompression = 'true'
-        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -Verbose
-        choco feature enable -n allowGlobalConfirmation
-    }
 
 choco install dotnetcore-sdk --force
 sleep 10
