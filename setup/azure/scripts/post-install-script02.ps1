@@ -1,5 +1,7 @@
 . C:\LabFiles\AzureCreds.ps1
 
+Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension01.txt -Append
+
 $userName = $AzureUserName
 $password = $AzurePassword
 
@@ -20,4 +22,4 @@ New-AzRoleAssignment -ResourceGroupName $resourceGroupName -ErrorAction Ignore -
 
 sleep 20
 Unregister-ScheduledTask -TaskName "Setup" -Confirm:$false
-
+Stop-Transcript
