@@ -16,8 +16,7 @@ Param (
     $ODLID,
     
     [string]
-    $DeploymentID,
-
+    $DeploymentID
 )
 
 Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -Append
@@ -145,7 +144,7 @@ $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://github.com/SollianceNet/azure-synapse-analytics-day/archive/master.zip","C:\azure-synapse-analytics-day-master.zip")
 
 #unziping folder
-function Expand-ZIPFile($file, $destination)
+Function Expand-ZIPFile($file, $destination)
 {
 $shell = new-object -com shell.application
 $zip = $shell.NameSpace($file)
