@@ -144,7 +144,7 @@
                 ]
               },
               "protectedSettings": {
-                "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File CloudLabs-Samples/Workshop-Setup/main/setup/azure/scripts/post-install-script01.ps1', variables('cloudlabsCommon'))]"
+                "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File post-install-script01.ps1', variables('cloudlabsCommon'))]"
               }
             }
           }
