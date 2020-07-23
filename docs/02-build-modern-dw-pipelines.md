@@ -15,7 +15,7 @@ The tasks you will perform in this exercise are:
 
 **Important**:
 
-In the tasks below, you will be asked to enter a unique identifier in several places. You can find your unique identifier by looking at the username you were provided for logging into the Azure portal. Your username is in the format `user-UNIQUEID@msazurelabs.onmicrosoft.com`, where the _UNIQUEID_ component looks like `A01`, `B22`, or `C04`, as examples.
+In the tasks below, you will be asked to enter a unique identifier in several places. You can find your unique identifier by looking at the username you were provided for logging into the Azure portal. Your username is in the format `odl_user_UNIQUEID@msazurelabs.onmicrosoft.com`.
 
 Please locate this value and note it for the steps below.
 
@@ -45,15 +45,15 @@ In this task, you see how easy it is to write into a SQL Pool table with Spark t
 
    ![The uniqueId variable on line 8 of Cell 1 is highlighted.](images/ex02-notebooks-configure-unique-id.png "Update UniqueId variable")
 
-6. Update the value of the `uniqueId` variable, setting it to the unique identifier you were assigned for this workshop. This will be the _UNIQUEID_ component of your username, as mentioned above. For example:
+6. Update the value of the `uniqueId` variable, setting it to the unique identifier you were assigned for this workshop. You will see **uniqueId** value on Lab Environment tab. This will be the _UNIQUEID_ component of your username, as mentioned above. For example:
 
    ```scala
-   val uniqueId = "A03"
+   val uniqueId = "2547"
    ```
 
    > **Important**: Every workshop attendee needs to set this variable to their assigned unique identifier to ensure the table name this notebook targets is unique. Failure to set this value will prevent the notebook from running.
 
-   ![The uniqueId variable is highlighted and its value is set to an example value of "A03".](images/ex02-notebooks-configure-set-unique-id.png "Updated UniqueId variable")
+   ![The uniqueId variable is highlighted and its value is set to an example value of "A03".](images/ex02-notebooks-configure-set-unique-id02.png "Updated UniqueId variable")
 
    > **Note**: You may notice the **Publish all** button is highlighted after making changes. Please **do not publish** your changes, as this will impact the notebook used by all workshop attendees. You do not need to publish the changes to run the notebook in the steps below.
 
@@ -110,7 +110,7 @@ In this task, you see how easy it is to write into a SQL Pool table with Spark t
 
     ![The Databases folder is expanded, showing a list of databases within the Azure Synapse Analytics workspace. SQLPool01 is expanded and highlighted.](images/ex02-data-sqlpool01.png "Synapse Analytics Databases")
 
-17. Expand **Tables** and locate the table named `wwi_staging.Sale_UNIQUEID`, where `UNIQUEID` is the unique identifier assigned to you for this workshop. Which you retrieved from your username above (e.g., `A03`).
+17. Expand **Tables** and locate the table named `wwi_staging.Sale_UNIQUEID`, where `UNIQUEID` is the unique identifier assigned to you for this workshop. Which you retrieved from your username above (e.g., `2547`).
 
     > If you do not see the table, select the Actions ellipsis next to Tables and then select **Refresh** from the fly-out menu.
 
