@@ -1,6 +1,6 @@
-AzureUserName= AzureUserNameValue
-AzurePassword= AzurePasswordValue
-AzureTenantID= AzureTenantIDValue
-AzureSubscriptionID= AzureSubscriptionIDValue
-DeploymentID= DeploymentIDValue
+AzureUserName=AzureUserNameValue
+AzurePassword=AzurePasswordValue
+AzureTenantID=AzureTenantIDValue
+AzureSubscriptionID=AzureSubscriptionIDValue
+DeploymentID=DeploymentIDValue
 
