@@ -158,7 +158,7 @@ $deploymentId =  (Get-AzResourceGroup -Name $resourceGroupName).Tags["Deployment
 
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName `
   -TemplateUri "https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/setup/azure/innertemplates/deploy-synapse-workspace.json" `
-  -deploymentId $deploymentId -AsJob
+  -deploymentId $deploymentId 
   
 sleep 20
 Stop-Transcript
