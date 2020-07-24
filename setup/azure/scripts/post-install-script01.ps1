@@ -20,7 +20,7 @@ Param (
 )
 
 #Disable-InternetExplorerESC
-function Disable-InternetExplorerESC
+function DisableInternetExplorerESC
 {
   $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
   $UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
@@ -30,7 +30,7 @@ function Disable-InternetExplorerESC
 }
 
 #Enable-InternetExplorer File Download
-function Enable-IEFileDownload
+function EnableIEFileDownload
 {
   $HKLM = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3"
   $HKCU = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3"
@@ -113,7 +113,7 @@ function InstallPowerBIDesktop
 }
 
 #Expand Zipfile
-function Expand-ZIPFile($file, $destination)
+function ExpandZIPFile($file, $destination)
 {
   $shell = new-object -com shell.application
   $zip = $shell.NameSpace($file)
@@ -132,8 +132,8 @@ $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://github.com/SollianceNet/azure-synapse-analytics-day/archive/master.zip","C:\azure-synapse-analytics-day-master.zip")
 
 #Run Functions
-Disable-InternetExplorerESC
-Enable-IEFileDownload
+DisableInternetExplorerESC
+EnableIEFileDownload
 DisableServerMgrNetworkPopup
 CreateLabFilesDirectory
 DisableWindowsFirewall
@@ -141,7 +141,7 @@ InstallEdgeChromium
 CreateCredFile $azureUserName $azurePassword $azureTenantID $azureSubscriptionID $deploymentId $odlId
 InstallAzPowerShellModule
 InstallPowerBIDesktop
-Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
+ExpandZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
 
 Add-Content -Path "C:\LabFiles\AzureCreds.txt" -Value "ODLID= $odlId" -PassThru
 
