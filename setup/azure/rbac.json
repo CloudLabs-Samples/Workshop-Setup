@@ -13,6 +13,5 @@
     "Microsoft.Synapse/workspaces/*"
   ],
   "NotActions": [
-
   ]
 }
