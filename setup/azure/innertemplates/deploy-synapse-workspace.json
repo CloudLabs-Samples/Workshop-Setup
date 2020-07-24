@@ -97,44 +97,7 @@
         }
       ]
     },
-    {
-      "type": "Microsoft.Synapse/workspaces",
-      "apiVersion": "2019-06-01-preview",
-      "name": "[variables('workspaceName')]",
-      "location": "[variables('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('adlsStorageAccountName'), '/blobServices/default/containers/', variables('defaultDataLakeStorageFilesystemName'))]"
-      ],
-      "identity": {
-        "type": "SystemAssigned"
-      },
-      "properties": {
-        "defaultDataLakeStorage": {
-          "accountUrl": "[variables('defaultDataLakeStorageAccountUrl')]",
-          "filesystem": "[variables('defaultDataLakeStorageFilesystemName')]"
-        },
-        "virtualNetworkProfile": {
 
-        },
-        "sqlAdministratorLogin": "[variables('sqlAdministratorLogin')]",
-        "sqlAdministratorLoginPassword": "[variables('sqlAdministratorLoginPassword')]"
-      },
-      "resources": [
-        {
-          "type": "firewallrules",
-          "apiVersion": "2019-06-01-preview",
-          "name": "allowAll",
-          "location": "[variables('location')]",
-          "dependsOn": [
-            "[concat('Microsoft.Synapse/workspaces/', variables('workspaceName'))]"
-          ],
-          "properties": {
-            "startIpAddress": "0.0.0.0",
-            "endIpAddress": "255.255.255.255"
-          }
-        }
-      ]
-    },
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices/containers/providers/roleAssignments",
       "apiVersion": "2018-09-01-preview",
@@ -149,29 +112,29 @@
         "principalType": "ServicePrincipal"
       }
     },
+
     {
-      "type": "Microsoft.Synapse/workspaces/bigDataPools",
-      "apiVersion": "2019-06-01-preview",
-      "name": "[concat(variables('workspaceName'), '/', variables('sparkComputeName'))]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2019-04-01",
+      "name": "[variables('blobStorageAccountName')]",
       "location": "[variables('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Synapse/workspaces/', variables('workspaceName'))]",
-        "[concat('Microsoft.Synapse/workspaces/', variables('workspaceName'), '/sqlPools/', variables('sqlComputeName'))]"
-      ],
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2",
       "properties": {
-        "nodeCount": "[variables('sparkNodeCount')]",
-        "nodeSizeFamily": "[variables('sparkNodeSizeFamily')]",
-        "sparkVersion": "[variables('sparkVersion')]",
-        "nodeSize": "[variables('sparkNodeSize')]",
-        "autoScale": {
-          "enabled": "[variables('sparkAutoScaleEnabled')]",
-          "minNodeCount": "[variables('sparkMinNodeCount')]",
-          "maxNodeCount": "[variables('sparkMaxNodeCount')]"
+        "encryption": {
+          "services": {
+            "blob": {
+              "enabled": true
+            },
+            "file": {
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
         },
-        "autoPause": {
-          "enabled": "[variables('sparkAutoPauseEnabled')]",
-          "delayInMinutes": "[variables('sparkAutoPauseDelayInMinutes')]"
-        }        
+        "supportsHttpsTrafficOnly": true
       }
     },
     {
@@ -219,6 +182,44 @@
       }
     },
     {
+      "type": "Microsoft.Synapse/workspaces",
+      "apiVersion": "2019-06-01-preview",
+      "name": "[variables('workspaceName')]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Storage/storageAccounts/', variables('adlsStorageAccountName'), '/blobServices/default/containers/', variables('defaultDataLakeStorageFilesystemName'))]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "defaultDataLakeStorage": {
+          "accountUrl": "[variables('defaultDataLakeStorageAccountUrl')]",
+          "filesystem": "[variables('defaultDataLakeStorageFilesystemName')]"
+        },
+        "virtualNetworkProfile": {
+
+        },
+        "sqlAdministratorLogin": "[variables('sqlAdministratorLogin')]",
+        "sqlAdministratorLoginPassword": "[variables('sqlAdministratorLoginPassword')]"
+      },
+      "resources": [
+        {
+          "type": "firewallrules",
+          "apiVersion": "2019-06-01-preview",
+          "name": "allowAll",
+          "location": "[variables('location')]",
+          "dependsOn": [
+            "[concat('Microsoft.Synapse/workspaces/', variables('workspaceName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "255.255.255.255"
+          }
+        }
+      ]
+    },
+    {
       "type": "Microsoft.Synapse/workspaces/sqlPools",
       "apiVersion": "2019-06-01-preview",
       "name": "[concat(variables('workspaceName'), '/', variables('sqlComputeName'))]",
@@ -233,6 +234,31 @@
       "properties": {
         "createMode": "Default",
         "collation": "SQL_Latin1_General_CP1_CI_AS"
+      }
+    },
+    {
+      "type": "Microsoft.Synapse/workspaces/bigDataPools",
+      "apiVersion": "2019-06-01-preview",
+      "name": "[concat(variables('workspaceName'), '/', variables('sparkComputeName'))]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Synapse/workspaces/', variables('workspaceName'))]",
+        "[concat('Microsoft.Synapse/workspaces/', variables('workspaceName'), '/sqlPools/', variables('sqlComputeName'))]"
+      ],
+      "properties": {
+        "nodeCount": "[variables('sparkNodeCount')]",
+        "nodeSizeFamily": "[variables('sparkNodeSizeFamily')]",
+        "sparkVersion": "[variables('sparkVersion')]",
+        "nodeSize": "[variables('sparkNodeSize')]",
+        "autoScale": {
+          "enabled": "[variables('sparkAutoScaleEnabled')]",
+          "minNodeCount": "[variables('sparkMinNodeCount')]",
+          "maxNodeCount": "[variables('sparkMaxNodeCount')]"
+        },
+        "autoPause": {
+          "enabled": "[variables('sparkAutoPauseEnabled')]",
+          "delayInMinutes": "[variables('sparkAutoPauseDelayInMinutes')]"
+        }
       }
     }
   ],
