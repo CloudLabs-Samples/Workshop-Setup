@@ -29,9 +29,7 @@
     "sparkNodeSize": "Small",
     "sparkAutoPauseEnabled": "true",
     "sparkAutoPauseDelayInMinutes": "5",
-    "sparkVersion": "2.4",
-    "packagesRequirementsFileName": "",
-    "packagesRequirementsContent": ""
+    "sparkVersion": "2.4"
   },
   "resources": [
     {
@@ -163,6 +161,7 @@
       "properties": {
         "nodeCount": "[variables('sparkNodeCount')]",
         "nodeSizeFamily": "[variables('sparkNodeSizeFamily')]",
+        "sparkVersion": "[variables('sparkVersion')]",
         "nodeSize": "[variables('sparkNodeSize')]",
         "autoScale": {
           "enabled": "[variables('sparkAutoScaleEnabled')]",
@@ -172,12 +171,7 @@
         "autoPause": {
           "enabled": "[variables('sparkAutoPauseEnabled')]",
           "delayInMinutes": "[variables('sparkAutoPauseDelayInMinutes')]"
-        },
-        "sparkVersion": "[variables('sparkVersion')]",
-        "libraryRequirements": {
-          "filename": "[variables('packagesRequirementsFileName')]",
-          "content": "[variables('packagesRequirementsContent')]"
-        }
+        },           
       }
     },
     {
