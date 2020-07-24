@@ -1,8 +1,8 @@
 {
-  "Name": "Analytics in a Day - RBAC",
+  "Name": "CloudLabs Sample Workshop - RBAC",
   "Id": null,
   "IsCustom": true,
-  "Description": "Spektra Training Custom Role.",
+  "Description": "CloudLabs Sample Workshop Custom Role.",
   "Actions": [
     "Microsoft.Authorization/*/read",
     "Microsoft.Authorization/roleAssignments/write",  
