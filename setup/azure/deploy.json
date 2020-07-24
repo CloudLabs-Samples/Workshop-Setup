@@ -138,8 +138,8 @@
       "properties": {
         "osProfile": {
           "computerName": "[variables('vmName')]",
-          "vmadminUsername": "[parameters('vmadminUsername')]",
-          "vmadminPassword": "[parameters('vmadminPassword')]",
+          "adminUsername": "[parameters('vmadminUsername')]",
+          "adminPassword": "[parameters('vmadminPassword')]",
           "windowsConfiguration": {
             "provisionVmAgent": "true"
           }
