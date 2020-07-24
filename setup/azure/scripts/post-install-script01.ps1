@@ -40,7 +40,7 @@ function Enable-IEFileDownload
   Set-ItemProperty -Path $HKCU -Name "1604" -Value 0 -ErrorAction SilentlyContinue -Verbose
 }
 
-#Disable Server Manager NetworkPopup
+#Disable-Server Manager NetworkPopup
 function DisableServerMgrNetworkPopup
 {
   cd HKLM:\
@@ -48,19 +48,19 @@ function DisableServerMgrNetworkPopup
   Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
 }
 
-#Disable CreateLabFilesDirectory
+#Create-LabFilesDirectory
 function CreateLabFilesDirectory
 {
   New-Item -ItemType directory -Path C:\LabFiles -force
 }
 
-#Disable DisableWindowsFirewall
+#Disable-WindowsFirewall
 function DisableWindowsFirewall
 {
   Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 }
 
-#Install Edge-Chromium
+#Install-EdgeChromium and Create AzurePortal Shortcut on Desktop
 function InstallEdgeChromium
 {
   #Download and Install edge
@@ -112,7 +112,7 @@ function InstallPowerBIDesktop
   Start-Process -FilePath "C:\Packages\PBIDesktop_x64.exe" -ArgumentList '-quiet','ACCEPT_EULA=1'
 }
 
-# Expand Zipfile
+#Expand Zipfile
 function Expand-ZIPFile($file, $destination)
 {
   $shell = new-object -com shell.application
@@ -127,7 +127,7 @@ Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
 
-# Run Functions
+#Run Functions
 Disable-InternetExplorerESC
 Enable-IEFileDownload
 DisableServerMgrNetworkPopup
