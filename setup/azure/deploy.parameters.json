@@ -2,22 +2,22 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "adminUsername": {
+      "vmadminUsername": {
         "value": "demouser"
       },
-      "adminPassword": {
+      "vmadminPassword": {
         "value": "Password.1!!"
       },
-      "AzureUserName": {
+      "azureUserName": {
         "value": "GET-AZUSER-UPN"
       },
-      "AzurePassword": {
+      "azurePassword": {
         "value": "GET-AZUSER-PASSWORD"
       },
-      "ODLID": {
+      "odlId": {
         "value": "GET-ODL-ID"
       },
-      "DeploymentID": {
+      "deploymentId": {
         "value": "GET-DEPLOYMENT-ID"
       }
     }
