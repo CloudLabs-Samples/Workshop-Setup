@@ -2,13 +2,13 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vmadminUsername": {
+    "vmAdminUsername": {
       "type": "String"
     },
-    "vmadminPassword": {
+    "vmAdminPassword": {
       "type": "SecureString"
     },
-    "azureUserName": {
+    "azureUsername": {
       "type": "string"
     },
     "azurePassword": {
@@ -22,7 +22,7 @@
     }
   },
   "variables": {
-    "postinstallparameters": "[concat(' -azureUserName ', parameters('azureUserName'), ' -azurePassword ', parameters('azurePassword'), ' -azureTenantID ', variables('azureTenantID'), ' -azureSubscriptionID ', variables('azureSubscriptionID'), ' -odlId ', parameters('odlId'), ' -deploymentId ', parameters('deploymentId'))]",
+    "postInstallParameters": "[concat(' -azureUsername', parameters('azureUsername'), ' -azurePassword ', parameters('azurePassword'), ' -azureTenantID ', variables('azureTenantID'), ' -azureSubscriptionID ', variables('azureSubscriptionID'), ' -odlId ', parameters('odlId'), ' -deploymentId ', parameters('deploymentId'))]",
     "azureSubscriptionID": "[subscription().subscriptionId]",
     "azureTenantID": "[subscription().tenantId]",
     "rgName": "[resourceGroup().name]",
@@ -138,8 +138,8 @@
       "properties": {
         "osProfile": {
           "computerName": "[variables('vmName')]",
-          "adminUsername": "[parameters('vmadminUsername')]",
-          "adminPassword": "[parameters('vmadminPassword')]",
+          "adminUsername": "[parameters('vmAdminUsername')]",
+          "adminPassword": "[parameters('vmAdminPassword')]",
           "windowsConfiguration": {
             "provisionVmAgent": "true"
           }
@@ -197,7 +197,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File post-install-script01.ps1', variables('postinstallparameters'))]"
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File post-install-script01.ps1', variables('postInstallParameters'))]"
             }
           }
         }
@@ -215,11 +215,11 @@
     },
     "LABVM Admin Username": {
       "type": "String",
-      "value": "[parameters('vmadminUsername')]"
+      "value": "[parameters('vmAdminUsername')]"
     },
     "LABVM Admin Password": {
       "type": "String",
-      "value": "[parameters('vmadminPassword')]"
+      "value": "[parameters('vmAdminPassword')]"
     },
     "LABVM DNS Name": {
       "type": "String",
