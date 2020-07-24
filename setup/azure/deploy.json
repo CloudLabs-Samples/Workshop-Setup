@@ -2,7 +2,7 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vmvmadminUsername": {
+    "vmadminUsername": {
       "type": "String"
     },
     "vmadminPassword": {
@@ -30,7 +30,7 @@
     "networkInterfaceName": "labvm-nic",
     "networkSecurityGroupName": "labvm-nsg",
     "publicIpAddressDNSName": "[concat('labvm-', uniqueString(resourceGroup().id))]",
-    "publicIpAddressName": "[concat('labvm-pip', uniqueString(resourceGroup().id))]",
+    "publicIpAddressName": "[concat('labvm-pip-', uniqueString(resourceGroup().id))]",
     "subnetName": "Subnet",
     "subnetPrefix": "10.0.0.0/24",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/',variables('virtualNetworkName'), variables('subnetName'))]",
