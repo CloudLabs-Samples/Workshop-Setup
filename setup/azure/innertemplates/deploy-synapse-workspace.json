@@ -97,7 +97,6 @@
         }
       ]
     },
-
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices/containers/providers/roleAssignments",
       "apiVersion": "2018-09-01-preview",
@@ -112,7 +111,6 @@
         "principalType": "ServicePrincipal"
       }
     },
-
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2019-04-01",
