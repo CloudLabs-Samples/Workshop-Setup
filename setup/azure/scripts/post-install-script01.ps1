@@ -1,22 +1,22 @@
 Param (
-    [Parameter(Mandatory = $true)]
-    [string]
-    $azureUserName,
+  [Parameter(Mandatory = $true)]
+  [string]
+  $azureUserName,
 
-    [string]
-    $azurePassword,
+  [string]
+  $azurePassword,
 
-    [string]
-    $azureTenantID,
+  [string]
+  $azureTenantID,
 
-    [string]
-    $azureSubscriptionID,
+  [string]
+  $azureSubscriptionID,
 
-    [string]
-    $odlId,
+  [string]
+  $odlId,
     
-    [string]
-    $deploymentId
+  [string]
+  $deploymentId
 )
 
 #Disable-InternetExplorerESC
