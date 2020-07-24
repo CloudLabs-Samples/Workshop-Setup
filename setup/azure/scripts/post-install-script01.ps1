@@ -131,7 +131,7 @@ Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -
 Disable-InternetExplorerESC
 Enable-IEFileDownload
 DisableServerMgrNetworkPopup
-CreateLabFilesDirector
+CreateLabFilesDirectory
 DisableWindowsFirewall
 InstallEdgeChromium
 CreateCredFile $azureUserName $azurePassword $azureTenantID $azureSubscriptionID $deploymentId $odlId
@@ -141,15 +141,10 @@ Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C
 
 Add-Content -Path "C:\LabFiles\AzureCreds.txt" -Value "ODLID= $odlId" -PassThru
 
-sleep 10
-
-$WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabs-Samples/Workshop-Setup/main/setup/azure/scripts/post-install-script02.ps1","C:\LabFiles\post-install-script02.ps1")
-
 sleep 20
 
 $securePassword = $azurePassword | ConvertTo-SecureString -AsPlainText -Force
-$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $azureUserName, $SecurePassword
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $azureUserName, $securePassword
 
 Connect-AzAccount -Credential $cred | Out-Null
 
