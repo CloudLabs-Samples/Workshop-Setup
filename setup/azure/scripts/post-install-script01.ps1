@@ -137,6 +137,12 @@ InstallEdgeChromium
 CreateCredFile $azureUserName $azurePassword $azureTenantID $azureSubscriptionID $deploymentId $odlId
 InstallAzPowerShellModule
 InstallPowerBIDesktop
+
+#Download lab files
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile("https://github.com/SollianceNet/azure-synapse-analytics-day/archive/master.zip","C:\azure-synapse-analytics-day-master.zip")
+
+#unziping folder
 Expand-ZIPFile -File "C:\azure-synapse-analytics-day-master.zip" -Destination "C:\LabFiles\"
 
 Add-Content -Path "C:\LabFiles\AzureCreds.txt" -Value "ODLID= $odlId" -PassThru
