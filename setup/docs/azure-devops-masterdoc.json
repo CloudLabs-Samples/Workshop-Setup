@@ -1,0 +1,10 @@
+[{
+  "Name": "Embracing Continuous Delivery with Azure Pipelines",
+   "Language": "English",
+  "Files": [
+    {
+      "RawFilePath": "https://raw.githubusercontent.com/microsoft/azuredevopslabs/master/labs/azuredevops/continuousdeployment/readme.md",
+      "Order": 1
+    }
+  ]
+}
