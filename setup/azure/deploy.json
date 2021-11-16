@@ -158,7 +158,7 @@
             "createOption": "fromImage",
             "name": "[concat(variables('vmName'), '-osdisk')]",
             "managedDisk": {
-              "storageAccountType": "Premium_LRS"
+              "storageAccountType": "Standard_LRS"
             }
           },
           "dataDisks": [
