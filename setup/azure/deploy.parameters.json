@@ -6,7 +6,7 @@
         "value": "demouser"
       },
       "vmAdminPassword": {
-        "value": "Password.1!!"
+        "value": "GEN-PASSWORD"
       },
       "azureUsername": {
         "value": "GET-AZUSER-UPN"
