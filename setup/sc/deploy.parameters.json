@@ -20,6 +20,9 @@
         "adminPassword": {
             "value": "GET-AZUSER-PASSWORD"
         },
+        "azureUserObjectId": {
+            "value": "GET-AZUSER-OBJECTID"
+        }
         "deploymentId": {
             "value": "GET-DEPLOYMENT-ID"
         }
