@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworkId": {
+            "value": "/subscriptions/994b6417-316b-4890-9e38-ef849f13c5bb/resourceGroups/edu-student-shared-rg/providers/Microsoft.Network/virtualNetworks/Student-VNET"
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_DS1_v2"
+        },
+        "adminUsername": {
+            "value": "labuser"
+        },
+        "adminPassword": {
+            "value": "GET-AZUSER-PASSWORD"
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "deploymentId": {
+            "value": "GET-DEPLOYMENT-ID"
+        }
+    }
+}
