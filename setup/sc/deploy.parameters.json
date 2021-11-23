@@ -9,7 +9,7 @@
             "value": "default"
         },
         "osDiskType": {
-            "value": "StandardLRS"
+            "value": "Standard_LRS"
         },
         "virtualMachineSize": {
             "value": "Standard_DS1_v2"
