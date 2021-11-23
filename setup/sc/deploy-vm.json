@@ -11,7 +11,7 @@
         "osDiskType": {
             "type": "String"
         },
-        "virtualMachineSize": {
+        "vmSize": {
             "type": "String"
         },
         "adminUsername": {
@@ -19,12 +19,6 @@
         },
         "adminPassword": {
             "type": "SecureString"
-        },
-        "patchMode": {
-            "type": "String"
-        },
-        "enableHotpatching": {
-            "type": "Bool"
         },
         "deploymentId": {
             "type": "string"
@@ -101,8 +95,8 @@
                         "enableAutomaticUpdates": true,
                         "provisionVmAgent": true,
                         "patchSettings": {
-                            "enableHotpatching": "[parameters('enableHotpatching')]",
-                            "patchMode": "[parameters('patchMode')]"
+                            "enableHotpatching": "false",
+                            "patchMode": "AutomaticByOS"
                         }
                     }
                 }
