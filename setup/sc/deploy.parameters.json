@@ -22,7 +22,7 @@
         },
         "azureUserObjectId": {
             "value": "GET-AZUSER-OBJECTID"
-        }
+        },
         "deploymentId": {
             "value": "GET-DEPLOYMENT-ID"
         }
