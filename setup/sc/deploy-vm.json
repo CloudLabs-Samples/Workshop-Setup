@@ -20,6 +20,9 @@
         "adminPassword": {
             "type": "SecureString"
         },
+        "azureUserObjectId": {
+            "type": "string"
+        }
         "deploymentId": {
             "type": "string"
         }
@@ -101,6 +104,59 @@
                     }
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "apply-rbac-bastion",
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                    "azureUserObjectId": {
+                        "value": "[parameters('azureUserObjectId')]"
+                    },
+                    "deploymentId": {
+                        "value": "[parameters('deploymentId')]"
+                    }
+                },
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "azureUserObjectId": {
+                            "type": "string"
+                        },
+                        "deploymentId": {
+                            "type": "string"
+                        },
+                        "roleNameGuid": {
+                            "type": "string",
+                            "defaultValue": "[newGuid()]"
+                        }
+                    },
+                    "variables": {
+                        "location": "[resourceGroup().location]",
+                        "Reader": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]"
+                    },
+                    "resources": [
+                        {
+                            "type": "Microsoft.Authorization/roleAssignments",
+                            "apiVersion": "2018-09-01-preview",
+                            "name": "[parameters('roleNameGuid')]",
+                            "dependsOn": [],
+                            "properties": {
+                                "roleDefinitionId": "[variables('Reader')]",
+                                "principalId": "[parameters('azureUserObjectId')]"
+                            },
+                            "scope": "Microsoft.Network/bastionHosts/Bastion"
+                        }
+                    ]
+                }
+            },
+            "resourceGroup": "edu-bastion-rg"
         }
     ],
     "outputs": {
