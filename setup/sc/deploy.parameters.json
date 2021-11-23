@@ -20,12 +20,6 @@
         "adminPassword": {
             "value": "GET-AZUSER-PASSWORD"
         },
-        "patchMode": {
-            "value": "AutomaticByOS"
-        },
-        "enableHotpatching": {
-            "value": false
-        },
         "deploymentId": {
             "value": "GET-DEPLOYMENT-ID"
         }
