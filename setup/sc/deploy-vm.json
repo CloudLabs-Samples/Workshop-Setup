@@ -2,19 +2,10 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "networkInterfaceName": {
-            "type": "String"
-        },
-        "subnetName": {
-            "type": "String"
-        },
         "virtualNetworkId": {
             "type": "String"
         },
-        "virtualMachineName": {
-            "type": "String"
-        },
-        "virtualMachineComputerName": {
+        "subnetName": {
             "type": "String"
         },
         "osDiskType": {
@@ -34,19 +25,25 @@
         },
         "enableHotpatching": {
             "type": "Bool"
+        },
+        "deploymentId": {
+            "type": "string"
         }
     },
     "variables": {
         "vnetId": "[parameters('virtualNetworkId')]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
         "virtualMachineRG": "[resourceGroup().name]",
-        "location": "[resourceGroup().location]"
+        "location": "[resourceGroup().location]",
+        "networkInterfaceName": "[concat('vm-nic-', parameters('deploymentId'))]",
+        "virtualMachineName": "[concat('vm-', parameters('deploymentId'))]",
+        "virtualMachineComputerName": "[concat('vm-', parameters('deploymentId'))]",
     },
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2021-03-01",
-            "name": "[parameters('networkInterfaceName')]",
+            "name": "[variables('networkInterfaceName')]",
             "location": "[variables('location')]",
             "dependsOn": [],
             "properties": {
@@ -66,7 +63,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2021-07-01",
-            "name": "[parameters('virtualMachineName')]",
+            "name": "[variables('virtualMachineName')]",
             "location": "[variables('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
@@ -97,7 +94,7 @@
                     ]
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachineComputerName')]",
+                    "computerName": "[variables('virtualMachineComputerName')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]",
                     "windowsConfiguration": {
