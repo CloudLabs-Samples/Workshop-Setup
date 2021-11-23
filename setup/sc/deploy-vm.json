@@ -37,7 +37,7 @@
         "location": "[resourceGroup().location]",
         "networkInterfaceName": "[concat('vm-nic-', parameters('deploymentId'))]",
         "virtualMachineName": "[concat('vm-', parameters('deploymentId'))]",
-        "virtualMachineComputerName": "[concat('vm-', parameters('deploymentId'))]",
+        "virtualMachineComputerName": "[concat('vm-', parameters('deploymentId'))]"
     },
     "resources": [
         {
@@ -66,7 +66,7 @@
             "name": "[variables('virtualMachineName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
+                "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -89,7 +89,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
                         }
                     ]
                 },
