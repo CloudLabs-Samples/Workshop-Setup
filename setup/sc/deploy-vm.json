@@ -22,7 +22,7 @@
         },
         "azureUserObjectId": {
             "type": "string"
-        }
+        },
         "deploymentId": {
             "type": "string"
         }
