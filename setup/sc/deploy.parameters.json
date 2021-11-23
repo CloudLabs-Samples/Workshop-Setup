@@ -11,7 +11,7 @@
         "osDiskType": {
             "value": "Standard_LRS"
         },
-        "virtualMachineSize": {
+        "vmSize": {
             "value": "Standard_DS1_v2"
         },
         "adminUsername": {
