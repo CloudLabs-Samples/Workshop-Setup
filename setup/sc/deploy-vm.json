@@ -64,7 +64,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[parameters('virtualMachineSize')]"
+                    "vmSize": "[parameters('vmSize')]"
                 },
                 "storageProfile": {
                     "osDisk": {
